@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
+
 	"log"
 	"log/slog"
 	"net/http"
@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/aniket-mahakalkar/student_api/internal/config"
+	"github.com/aniket-mahakalkar/student_api/internal/http/handlers/student"
 )
 
 
@@ -27,11 +28,7 @@ func main(){
 
 	router := http.NewServeMux()
 
-	router.HandleFunc("GET /", func (w http.ResponseWriter , r *http.Request)  {
-
-		w.Write([] byte("welcom to student api"))
-		
-	})
+	router.HandleFunc("POST /api/students",student.New())
 
 
 	//setup server
@@ -42,7 +39,7 @@ func main(){
 	}
 	
 	slog.Info("server started %s",slog.String( "address" , cfg.HTTPServer.Addr))
-	fmt.Printf("server started %s" , cfg.HTTPServer.Addr)
+
 
 
 
